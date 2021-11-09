@@ -42,4 +42,4 @@ CREATE OR ALTER PROC usp_GetTownsStartingWith
 			JOIN Towns AS t ON t.TownID = a.TownID
 			WHERE t.[Name] = @inputTown
 
-   EXEC usp_GetEmployeesFromTown Sofia
+   EXEC usp_GetEmployeesFromTown 'Sofia'
