@@ -27,3 +27,19 @@ CREATE OR ALTER PROC usp_GetTownsStartingWith
 		 WHERE [Name] LIKE @inputString + '%'
 
      EXEC usp_GetTownsStartingWith 'b'
+//////
+
+ --Write a stored procedure usp_GetEmployeesFromTown that accepts town name as parameter and return the employees’ first and last name that live in the given town. 
+
+	 CREATE PROC usp_GetEmployeesFromTown
+	     @inputTown VARCHAR(50)
+     AS 
+	   SELECT 
+	        e.FirstName, 
+	        e.LastName 
+		FROM Employees AS e
+			JOIN Addresses AS a ON a.AddressID = e.AddressID
+			JOIN Towns AS t ON t.TownID = a.TownID
+			WHERE t.[Name] = @inputTown
+
+   EXEC usp_GetEmployeesFromTown Sofia
