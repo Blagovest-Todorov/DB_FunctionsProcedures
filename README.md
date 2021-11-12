@@ -43,3 +43,32 @@ CREATE OR ALTER PROC usp_GetTownsStartingWith
 			WHERE t.[Name] = @inputTown
 
    EXEC usp_GetEmployeesFromTown 'Sofia'
+   
+   
+   ///
+
+EXAMPLE WITH FUNCTION :
+
+--FV=I×(〖(1+R)〗^T)
+--ufn_CalculateFutureValue\
+
+
+--Your task is to create a function ufn_CalculateFutureValue that accepts as parameters – sum (decimal), yearly interest rate (float) and number of years(int). It should calculate and return the future value of the initial sum rounded to the fourth digit after the decimal delimiter. Using the following formula:
+--FV=I×(〖(1+R)〗^T)
+--	I – Initial sum (start SUM)
+--	R – Yearly interest rate
+--	T – Number of years
+
+CREATE FUNCTION ufn_CalculateFutureValue(@sum DECIMAL(18, 4), @yearlyInteresRate FLOAT, @numbYears INT)
+RETURNS DECIMAL(18, 4) 
+BEGIN 
+    RETURN @sum * POWER ((1 + @yearlyInteresRate), @numbYears)
+END 
+
+SELECT dbo.ufn_CalculateFutureValue(1000, 0.1, 5)
+
+
+
+
+
+
