@@ -67,7 +67,31 @@ END
 
 SELECT dbo.ufn_CalculateFutureValue(1000, 0.1, 5)
 
+///
 
+CREATE PROC usp_DepositMoney @accountId INT, @moneyAmount DECIMAL(15, 4)
+AS
+BEGIN
+   BEGIN TRANSACTION 
+   IF(@moneyAmount <= 0)
+   BEGIN
+       RAISERROR('Error sum must be positive', 16, 1)
+	   ROLLBACK
+	   RETURN
+   END
+     UPDATE Accounts
+	 SET Balance = Balance + @moneyAmount
+	 WHERE Id = @accountId
+
+	 IF(@@ROWCOUNT <> 1)
+	 BEGIN
+	    RAISERROR('invalid account', 16, 2)
+		ROLLBACK;
+		RETURN;
+	 END 
+	 COMMIT
+END
+////
 
 
 
